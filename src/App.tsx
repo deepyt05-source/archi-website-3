@@ -26,14 +26,21 @@ type MagneticLinkProps = {
   children: ReactNode;
   className?: string;
   ariaLabel?: string;
+  motionStrength?: number;
 };
 
-function MagneticLink({ href, children, className = "", ariaLabel }: MagneticLinkProps) {
+function MagneticLink({
+  href,
+  children,
+  className = "",
+  ariaLabel,
+  motionStrength = 1,
+}: MagneticLinkProps) {
   const handleMove = (event: ReactPointerEvent<HTMLAnchorElement>) => {
     if (event.pointerType === "touch") return;
     const bounds = event.currentTarget.getBoundingClientRect();
-    const x = (event.clientX - bounds.left - bounds.width / 2) * 0.1;
-    const y = (event.clientY - bounds.top - bounds.height / 2) * 0.14;
+    const x = (event.clientX - bounds.left - bounds.width / 2) * 0.1 * motionStrength;
+    const y = (event.clientY - bounds.top - bounds.height / 2) * 0.14 * motionStrength;
     event.currentTarget.style.setProperty("--mx", `${x}px`);
     event.currentTarget.style.setProperty("--my", `${y}px`);
   };
@@ -167,7 +174,7 @@ function IconLink({ href, icon, children }: { href: string; icon: ReactNode; chi
 
 function CtaLink({ href, children }: { href: string; children: ReactNode }) {
   return (
-    <MagneticLink href={href} className="cta-link">
+    <MagneticLink href={href} className="cta-link" motionStrength={0.25}>
       <span className="cta-fill" />
       <span className="cta-label">{children}</span>
       <span className="cta-arrow">

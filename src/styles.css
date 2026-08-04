@@ -475,15 +475,23 @@ main {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   transform: translate(var(--mx), var(--my));
-  transition: border-color 220ms ease, transform 250ms cubic-bezier(0.19, 1, 0.22, 1);
+  transition: border-color 200ms ease, transform 180ms ease-out;
 }
 
 .cta-fill {
   position: absolute;
-  inset: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border-radius: 999px;
   background: #f0f0e9;
-  transform-origin: right;
-  transition: transform 350ms cubic-bezier(0.19, 1, 0.22, 1), background-color 220ms ease;
+  transition:
+    top 400ms cubic-bezier(0.16, 1, 0.3, 1),
+    right 400ms cubic-bezier(0.16, 1, 0.3, 1),
+    bottom 400ms cubic-bezier(0.16, 1, 0.3, 1),
+    left 400ms cubic-bezier(0.16, 1, 0.3, 1),
+    border-radius 400ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .cta-label,
@@ -494,6 +502,7 @@ main {
 
 .cta-label {
   padding-left: 24px;
+  transition: color 220ms ease;
 }
 
 .cta-arrow {
@@ -501,22 +510,33 @@ main {
   place-items: center;
   width: 34px;
   height: 34px;
-  margin-right: 6px;
+  margin-left: -5px;
   border-radius: 50%;
-  transition: transform 280ms cubic-bezier(0.19, 1, 0.22, 1), background-color 220ms ease, color 220ms ease;
+  transition: transform 200ms ease-out, color 200ms ease;
 }
 
 .cta-link:hover .cta-fill,
 .cta-link:focus-visible .cta-fill {
-  background: #d9ddd4;
-  transform: scaleX(0.985);
+  top: 4px;
+  right: 4px;
+  bottom: 3px;
+  left: calc(100% - 42px);
+  border-radius: 50%;
+}
+
+.cta-link:hover,
+.cta-link:focus-visible {
+  border-color: transparent;
+}
+
+.cta-link:hover .cta-label,
+.cta-link:focus-visible .cta-label {
+  color: #f7f6f0;
 }
 
 .cta-link:hover .cta-arrow,
 .cta-link:focus-visible .cta-arrow {
-  background: var(--forest);
-  color: #f0f0e9;
-  transform: translateX(2px) rotate(-7deg);
+  color: var(--forest);
 }
 
 .cta-link:focus-visible {

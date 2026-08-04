@@ -17,3 +17,4 @@ Build app UI in `src/`. Keep `.openai/hosting.json`, `worker/index.js`, `scripts
 - Generated photography is placeholder content and must remain easy to replace from `public/images/`.
 - Align the desktop navigation pill to the home hero's 920px content width; keep the full-width treatment for the massive care cards only.
 - Massive-card photography should use restrained, non-touch cursor parallax and respect reduced-motion preferences.
+- Massive-card CTAs should morph their full ivory pill into an ivory arrow circle on hover/focus, with restrained magnetic movement and no bouncy rotation.
