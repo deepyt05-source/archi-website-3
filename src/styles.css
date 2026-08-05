@@ -111,9 +111,9 @@ p {
   width: 100%;
   border: 1px solid rgba(38, 48, 41, 0.05);
   border-radius: 999px;
-  background: rgba(229, 229, 223, 0.05);
-  box-shadow: 0 14px 40px rgba(31, 40, 34, 0.06);
-  backdrop-filter: blur(18px);
+  background: rgba(229, 229, 223, 0.267);
+  box-shadow: 0 14px 40px rgba(31, 40, 34, 0.09);
+  backdrop-filter: blur(12px);
   transition:
     left 400ms cubic-bezier(0.16, 1, 0.3, 1),
     width 400ms cubic-bezier(0.16, 1, 0.3, 1),
