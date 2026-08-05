@@ -179,7 +179,7 @@ function Nav() {
         />
         <a href="/" className="home-link" aria-label="Home" {...navLinkProps}>
           <span className="nav-home-icon" data-nav-content>
-            <HouseSimple size={15} weight="thin" />
+            <HouseSimple size={15} weight="bold" />
           </span>
         </a>
         <a href="/#treatments" className="nav-link" {...navLinkProps}>
