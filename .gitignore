@@ -1,2 +1,4 @@
 AGENTS.md
 design-qa.md
+node_modules/
+dist/
