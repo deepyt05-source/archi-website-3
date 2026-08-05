@@ -27,6 +27,7 @@ type MagneticLinkProps = {
   className?: string;
   ariaLabel?: string;
   motionStrength?: number;
+  disableResponsiveMotion?: boolean;
 };
 
 function MagneticLink({
@@ -35,9 +36,18 @@ function MagneticLink({
   className = "",
   ariaLabel,
   motionStrength = 1,
+  disableResponsiveMotion = false,
 }: MagneticLinkProps) {
   const handleMove = (event: ReactPointerEvent<HTMLAnchorElement>) => {
-    if (event.pointerType === "touch") return;
+    const supportsResponsiveMotion = window.matchMedia(
+      "(hover: hover) and (pointer: fine) and (min-width: 721px)"
+    ).matches;
+
+    if (event.pointerType === "touch" || (disableResponsiveMotion && !supportsResponsiveMotion)) {
+      event.currentTarget.style.setProperty("--mx", "0px");
+      event.currentTarget.style.setProperty("--my", "0px");
+      return;
+    }
     const bounds = event.currentTarget.getBoundingClientRect();
     const x = (event.clientX - bounds.left - bounds.width / 2) * 0.1 * motionStrength;
     const y = (event.clientY - bounds.top - bounds.height / 2) * 0.14 * motionStrength;
@@ -67,6 +77,8 @@ function Nav() {
   const onAbout = window.location.pathname === "/about";
   const navRef = useRef<HTMLElement>(null);
   const [hoverTarget, setHoverTarget] = useState<{ left: number; width: number } | null>(null);
+  const supportsNavMotion = () =>
+    window.matchMedia("(hover: hover) and (pointer: fine) and (min-width: 721px)").matches;
 
   const updateBackground = (link: HTMLAnchorElement) => {
     if (!navRef.current) return;
@@ -81,11 +93,18 @@ function Nav() {
   };
 
   const moveBackground = (event: ReactPointerEvent<HTMLAnchorElement>) => {
-    if (event.pointerType === "touch") return;
+    if (event.pointerType === "touch" || !supportsNavMotion()) {
+      setHoverTarget(null);
+      return;
+    }
     updateBackground(event.currentTarget);
   };
 
   const moveBackgroundOnFocus = (event: React.FocusEvent<HTMLAnchorElement>) => {
+    if (!supportsNavMotion()) {
+      setHoverTarget(null);
+      return;
+    }
     updateBackground(event.currentTarget);
   };
 
@@ -124,6 +143,21 @@ function Nav() {
       window.removeEventListener("resize", checkNavigationTheme);
     };
   }, []);
+
+  useEffect(() => {
+    const navMotionQuery = window.matchMedia(
+      "(hover: hover) and (pointer: fine) and (min-width: 721px)"
+    );
+    const clearMobileTarget = () => {
+      if (!navMotionQuery.matches) setHoverTarget(null);
+    };
+
+    clearMobileTarget();
+    navMotionQuery.addEventListener("change", clearMobileTarget);
+
+    return () => navMotionQuery.removeEventListener("change", clearMobileTarget);
+  }, []);
+
   return (
     <div className="nav-shell">
       <nav
@@ -131,6 +165,9 @@ function Nav() {
         aria-label="Main navigation"
         ref={navRef}
         onPointerLeave={() => setHoverTarget(null)}
+        onPointerDown={() => {
+          if (!supportsNavMotion()) setHoverTarget(null);
+        }}
         onBlur={(event) => {
           if (!event.currentTarget.contains(event.relatedTarget)) setHoverTarget(null);
         }}
@@ -174,7 +211,12 @@ function IconLink({ href, icon, children }: { href: string; icon: ReactNode; chi
 
 function CtaLink({ href, children }: { href: string; children: ReactNode }) {
   return (
-    <MagneticLink href={href} className="cta-link" motionStrength={0.25}>
+    <MagneticLink
+      href={href}
+      className="cta-link"
+      motionStrength={0.25}
+      disableResponsiveMotion
+    >
       <span className="cta-fill" />
       <span className="cta-label">{children}</span>
       <span className="cta-arrow">

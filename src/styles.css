@@ -1160,11 +1160,55 @@ footer > p {
     min-height: 42px;
     font-size: 7.5px;
     letter-spacing: 0.04em;
+    transform: none !important;
+    transition: none;
+  }
+
+  .nav-hover-bg {
+    left: 0 !important;
+    width: 100% !important;
+    transition: none;
   }
 
   .home-link {
     min-height: 30px !important;
     margin: 5px;
+  }
+
+  .cta-link {
+    transform: none !important;
+    transition: none;
+  }
+
+  .cta-fill,
+  .cta-label,
+  .cta-arrow {
+    transition: none;
+  }
+
+  .cta-link:hover,
+  .cta-link:focus-visible {
+    border-color: rgba(255, 255, 255, 0.28);
+  }
+
+  .cta-link:hover .cta-fill,
+  .cta-link:focus-visible .cta-fill {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    border-radius: 999px;
+  }
+
+  .cta-link:hover .cta-label,
+  .cta-link:focus-visible .cta-label {
+    color: var(--forest);
+  }
+
+  .cta-link:hover .cta-arrow,
+  .cta-link:focus-visible .cta-arrow {
+    color: var(--forest);
+    transform: none;
   }
 
   .home-hero {
@@ -1435,6 +1479,45 @@ footer > p {
 
   .outside-card > img {
     min-height: 430px;
+  }
+}
+
+/* Touch devices can retain :hover after a tap. Keep CTAs visually static there. */
+@media (hover: none), (pointer: coarse) {
+  .cta-link {
+    transform: none !important;
+    transition: none;
+  }
+
+  .cta-fill,
+  .cta-label,
+  .cta-arrow {
+    transition: none;
+  }
+
+  .cta-link:hover,
+  .cta-link:focus-visible {
+    border-color: rgba(255, 255, 255, 0.28);
+  }
+
+  .cta-link:hover .cta-fill,
+  .cta-link:focus-visible .cta-fill {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    border-radius: 999px;
+  }
+
+  .cta-link:hover .cta-label,
+  .cta-link:focus-visible .cta-label {
+    color: var(--forest);
+  }
+
+  .cta-link:hover .cta-arrow,
+  .cta-link:focus-visible .cta-arrow {
+    color: var(--forest);
+    transform: none;
   }
 }
 
