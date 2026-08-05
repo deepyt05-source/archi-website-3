@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,200..800&display=swap");
 :root {
   --paper: #f5f4ee;
   --paper-deep: #dedfd8;
@@ -9,6 +10,7 @@
   --muted: #747a73;
   --line: rgba(30, 42, 34, 0.16);
   --light-line: rgba(255, 255, 255, 0.18);
+  --hero-frame: min(1200px, calc(100% - 64px));
   --display: "Iowan Old Style", "Palatino Linotype", Palatino, Baskerville, Georgia, serif;
   --mono: "SFMono-Regular", "Cascadia Mono", "Roboto Mono", Consolas, monospace;
   color: var(--ink);
@@ -100,7 +102,7 @@ p {
   border: 0;
   border-radius: 999px;
   pointer-events: auto;
-  width: min(920px, 100%);
+  width: var(--hero-frame);
 }
 
 .nav-hover-bg {
@@ -111,9 +113,9 @@ p {
   width: 100%;
   border: 1px solid rgba(38, 48, 41, 0.05);
   border-radius: 999px;
-  background: rgba(229, 229, 223, 0.267);
-  box-shadow: 0 14px 40px rgba(31, 40, 34, 0.09);
-  backdrop-filter: blur(12px);
+  background: rgba(148, 148, 143, 0.267);
+  box-shadow: 0 14px 40px rgba(31, 40, 34, 0.05);
+  backdrop-filter: blur(8px);
   transition:
     left 400ms cubic-bezier(0.16, 1, 0.3, 1),
     width 400ms cubic-bezier(0.16, 1, 0.3, 1),
@@ -136,7 +138,7 @@ p {
   min-height: 46px;
   color: #50584f;
   font-family: var(--mono);
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 650;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -157,9 +159,9 @@ p {
   border-radius: 0;
 }
 
-.nav-home-icon {
-  display: grid;
-  place-items: center;
+.nav-home-icon svg {
+  width: 18.5px;
+  height: 18.5px;
 }
 
 .home-hero {
@@ -171,9 +173,9 @@ p {
   align-content: center;
   gap: 58px 96px;
   min-height: 900px;
-  width: min(920px, calc(100% - 56px));
+  width: var(--hero-frame);
   margin: 0 auto;
-  padding: 150px 0 96px;
+  padding: 255px 0 150px;
 }
 
 .hero-name {
@@ -181,11 +183,12 @@ p {
 }
 
 .hero-name h1 {
-  max-width: 700px;
+  max-width: 100px;
   margin: 0;
   font-size: clamp(88px, 11vw, 154px);
-  font-weight: 300;
-  letter-spacing: -0.065em;
+  font-family: "Newsreader", Georgia, serif;
+  font-weight: 280; 
+  letter-spacing: -0.045em;
   line-height: 0.77;
 }
 
@@ -197,7 +200,7 @@ p {
   max-width: 470px;
   margin-bottom: 32px;
   font-size: clamp(27px, 2.5vw, 38px);
-  font-weight: 400;
+  font-weight: 100;
   letter-spacing: -0.025em;
   line-height: 1.35;
 }
@@ -211,8 +214,8 @@ p {
 
 .mini-profile img,
 .footer-profile img {
-  width: 46px;
-  height: 46px;
+  width: 75px;
+  height: 75px;
   border-radius: 7px;
   object-fit: cover;
   box-shadow: 0 5px 14px rgba(20, 27, 22, 0.16);
@@ -1071,6 +1074,10 @@ footer > p {
     width: min(760px, calc(100% - 48px));
   }
 
+  .nav-pill {
+    width: min(760px, calc(100% - 48px));
+  }
+
   .home-hero {
     gap: 54px 58px;
   }
@@ -1154,11 +1161,12 @@ footer > p {
   .nav-pill {
     grid-template-columns: 40px repeat(4, 1fr);
     min-height: 44px;
+    width: calc(100% - 46px);
   }
 
   .nav-pill a {
     min-height: 42px;
-    font-size: 7.5px;
+    font-size: 8px;
     letter-spacing: 0.04em;
     transform: none !important;
     transition: none;
@@ -1174,6 +1182,16 @@ footer > p {
     min-height: 30px !important;
     margin: 5px;
   }
+
+  .nav-link {
+    font-weight: bolder;
+  }
+
+  .nav-home-icon svg {
+  margin-top: 2px;
+  width: 14px;
+  height: 14px;
+}
 
   .cta-link {
     transform: none !important;
