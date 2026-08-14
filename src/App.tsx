@@ -1,4 +1,5 @@
 import {
+  ArrowLeft,
   ArrowRight,
   ArrowUpRight,
   Compass,
@@ -19,6 +20,16 @@ import {
   type PointerEvent as ReactPointerEvent,
   type ReactNode,
 } from "react";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import {
+  blogPosts,
+  featuredPost,
+  formatBlogDate,
+  formatCategory,
+  getBlogPost,
+  type BlogPost,
+} from "./blog";
 import { carePanels, clinic, treatments } from "./content";
 
 type MagneticLinkProps = {
@@ -75,6 +86,7 @@ function MagneticLink({
 
 function Nav() {
   const onAbout = window.location.pathname === "/about";
+  const onBlog = window.location.pathname.startsWith("/blog");
   const navRef = useRef<HTMLElement>(null);
   const [hoverTarget, setHoverTarget] = useState<{ left: number; width: number } | null>(null);
   const supportsNavMotion = () =>
@@ -188,8 +200,8 @@ function Nav() {
         <a href="/about" className={`nav-link ${onAbout ? "is-active" : ""}`} {...navLinkProps}>
           <span data-nav-content>About</span>
         </a>
-        <a href="/#location" className="nav-link" {...navLinkProps}>
-          <span data-nav-content>Location</span>
+        <a href="/blog" className={`nav-link ${onBlog ? "is-active" : ""}`} {...navLinkProps}>
+          <span data-nav-content>Blog</span>
         </a>
         <a href="/#contact" className="nav-link" {...navLinkProps}>
           <span data-nav-content>Contact</span>
@@ -359,11 +371,180 @@ function Footer() {
       <div className="footer-links">
         <a href="/#treatments">Treatments</a>
         <a href="/about">About</a>
+        <a href="/blog">Blog</a>
         <a href="/#location">Location</a>
         <a href="/#contact">Contact</a>
       </div>
       <p>Outpatient psychiatry · Adult patients · Since 2020</p>
     </footer>
+  );
+}
+
+function BlogMeta({ post }: { post: BlogPost }) {
+  return (
+    <div className="blog-meta">
+      <span>{formatCategory(post.category)}</span>
+      <i aria-hidden="true" />
+      <span>{formatBlogDate(post.publishedAt)}</span>
+      <i aria-hidden="true" />
+      <span>{post.readingTime} min read</span>
+    </div>
+  );
+}
+
+function BlogCard({ post, featured = false }: { post: BlogPost; featured?: boolean }) {
+  return (
+    <article className={`blog-card reveal ${featured ? "is-featured" : ""}`}>
+      <a className="blog-card-image" href={`/blog/${post.slug}`} aria-label={`Read ${post.title}`}>
+        {post.coverImage ? (
+          <img src={post.coverImage} alt={post.coverImageAlt ?? ""} />
+        ) : (
+          <span className="blog-card-placeholder" aria-hidden="true">
+            <small>Archi Patel, PA-C</small>
+            <strong>{formatCategory(post.category)}</strong>
+          </span>
+        )}
+      </a>
+      <div className="blog-card-copy">
+        <BlogMeta post={post} />
+        <h2><a href={`/blog/${post.slug}`}>{post.title}</a></h2>
+        <p>{post.excerpt}</p>
+        <a className="blog-read-link" href={`/blog/${post.slug}`}>
+          Read article <ArrowRight size={16} aria-hidden="true" />
+        </a>
+      </div>
+    </article>
+  );
+}
+
+function BlogPage() {
+  const remainingPosts = featuredPost
+    ? blogPosts.filter((post) => post.slug !== featuredPost.slug)
+    : blogPosts;
+
+  return (
+    <>
+      <Nav />
+      <header className="blog-hero">
+        <div className="blog-hero-heading reveal">
+          <span className="eyebrow dark">Journal & patient education</span>
+          <h1>Thoughtful notes for a steadier mind.</h1>
+        </div>
+        <div className="blog-hero-intro reveal">
+          <p>
+            Clear, compassionate perspectives on mental health, treatment, and the everyday work of feeling well.
+          </p>
+          <div className="blog-hero-detail">
+            <span>{String(blogPosts.length).padStart(2, "0")}</span>
+            <p>Published articles written and reviewed with care.</p>
+          </div>
+        </div>
+      </header>
+
+      <main className="blog-main">
+        <SectionRule left="From the journal" right="Archi Patel, PA-C" />
+        {featuredPost ? (
+          <>
+            <BlogCard post={featuredPost} featured />
+            {remainingPosts.length > 0 && (
+              <section className="blog-grid" aria-label="More articles">
+                {remainingPosts.map((post) => <BlogCard key={post.slug} post={post} />)}
+              </section>
+            )}
+          </>
+        ) : (
+          <section className="blog-empty reveal">
+            <span className="eyebrow">The journal is taking shape</span>
+            <h2>New perspectives are coming soon.</h2>
+            <p>
+              Archi is preparing practical, approachable articles on mental health and well-being. Please check back soon.
+            </p>
+          </section>
+        )}
+      </main>
+      <Footer />
+    </>
+  );
+}
+
+function BlogPostPage({ post }: { post: BlogPost }) {
+  const authorName = post.authorType === "guest" && post.guestName
+    ? post.guestName
+    : "Archi Patel, PA-C";
+  const authorTitle = post.authorType === "guest"
+    ? [post.guestCredentials, post.guestOrganization].filter(Boolean).join(" · ")
+    : "Physician Associate";
+
+  useEffect(() => {
+    document.title = post.seoTitle || `${post.title} | Archi Patel, PA-C`;
+    const description = document.querySelector<HTMLMetaElement>('meta[name="description"]');
+    if (description) description.content = post.seoDescription || post.excerpt;
+    return () => {
+      document.title = "Archi Patel, PA-C | Physician Associate";
+    };
+  }, [post]);
+
+  return (
+    <>
+      <Nav />
+      <main className="article-page">
+        <header className="article-hero reveal">
+          <a className="article-back" href="/blog"><ArrowLeft size={16} /> Back to blog</a>
+          <BlogMeta post={post} />
+          <h1>{post.title}</h1>
+          <p>{post.excerpt}</p>
+        </header>
+
+        {post.coverImage && (
+          <figure className="article-cover reveal">
+            <img src={post.coverImage} alt={post.coverImageAlt ?? ""} />
+            {post.coverImageCaption && <figcaption>{post.coverImageCaption}</figcaption>}
+          </figure>
+        )}
+
+        <div className="article-layout">
+          <aside className="article-author reveal">
+            <img src="/images/archi-placeholder-portrait.png" alt="Editorial placeholder portrait of Archi Patel" />
+            <strong>{authorName}</strong>
+            {authorTitle && <span>{authorTitle}</span>}
+            {post.reviewedAt && <small>Reviewed {formatBlogDate(post.reviewedAt)}</small>}
+          </aside>
+          <article className="article-body reveal">
+            <ReactMarkdown
+              remarkPlugins={[remarkGfm]}
+              components={{
+                a: ({ children, href }) => (
+                  <a href={href} target={href?.startsWith("http") ? "_blank" : undefined} rel={href?.startsWith("http") ? "noopener noreferrer" : undefined}>
+                    {children}
+                  </a>
+                ),
+              }}
+            >
+              {post.body}
+            </ReactMarkdown>
+            <div className="article-disclaimer">
+              <strong>A note about this article</strong>
+              <p>This content is for general educational purposes and is not a substitute for personalized medical advice, diagnosis, or treatment.</p>
+            </div>
+          </article>
+        </div>
+      </main>
+      <Footer />
+    </>
+  );
+}
+
+function NotFoundPage() {
+  return (
+    <>
+      <Nav />
+      <main className="not-found-page">
+        <span className="eyebrow dark">404</span>
+        <h1>This page could not be found.</h1>
+        <a className="blog-read-link" href="/">Return home <ArrowRight size={16} /></a>
+      </main>
+      <Footer />
+    </>
   );
 }
 
@@ -564,5 +745,15 @@ export function App() {
     return () => observer.disconnect();
   }, []);
 
-  return window.location.pathname === "/about" ? <AboutPage /> : <HomePage />;
+  const path = window.location.pathname.replace(/\/+$/, "") || "/";
+
+  if (path === "/") return <HomePage />;
+  if (path === "/about") return <AboutPage />;
+  if (path === "/blog") return <BlogPage />;
+  if (path.startsWith("/blog/")) {
+    const slug = decodeURIComponent(path.slice("/blog/".length));
+    const post = getBlogPost(slug);
+    return post ? <BlogPostPage post={post} /> : <NotFoundPage />;
+  }
+  return <NotFoundPage />;
 }
