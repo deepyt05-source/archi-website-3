@@ -1,22 +1,11 @@
-media: 
-  - name: blog_iamges
+media:
+  - name: blog_images
     label: Blog images
     input: public/images/blog
     output: /images/blog
     categories: [image]
     extensions: [jpg, jpeg, png, webp]
     rename: safe
-
-settings:
-  content:
-    merge: true
-  commit:
-    identity: user
-    templates:
-      create: "content(blog): create {filename}"
-      update: "content(blog): update {filename}"
-      delete: "content(blog): delete {filename}"
-      rename: "content(blog): rename {oldFilename} to {newFilename}"
 
 content:
   - name: blog
