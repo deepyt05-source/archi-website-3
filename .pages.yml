@@ -3,118 +3,195 @@ media:
     label: Blog images
     input: public/images/blog
     output: /images/blog
-    categories: [image]
-    extensions: [jpg, jpeg, png, webp]
     rename: safe
+    extensions: [jpg, jpeg, png, webp, avif]
+    categories: [image]
+
+settings:
+  content:
+    merge: true
+  commit:
+    identity: user
+    templates:
+      create: "content: create {name}"
+      update: "content: update {name}"
+      delete: "content: delete {name}"
+      rename: "content: rename {oldFilename} to {newFilename}"
 
 content:
+  - name: categories
+    label: Blog categories
+    type: collection
+    path: src/content/categories
+    format: yaml
+    filename: "{slug}.yaml"
+    view:
+      primary: title
+      fields: [title, slug]
+      sort: [title]
+      default:
+        sort: title
+        order: asc
+    fields:
+      - name: title
+        label: Category title
+        type: string
+        required: true
+        options:
+          minlength: 2
+          maxlength: 60
+      - name: slug
+        label: URL slug
+        type: string
+        required: true
+        pattern:
+          regex: "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          message: Use lowercase words separated by hyphens.
+      - name: description
+        label: Short description
+        type: text
+        required: true
+        options:
+          minlength: 20
+          maxlength: 240
+
   - name: blog
     label: Blog posts
     type: collection
-    path: content/blog
+    path: src/content/blog
     format: yaml-frontmatter
-    filename:
-      template: "{fields.slug}.md"
-      field: false
+    filename: "{slug}.md"
     view:
       primary: title
-      sort: published_at
-      order: desc
+      fields: [title, published, category, publishedAt]
+      search: [title, excerpt, category]
+      sort: [publishedAt, title]
+      default:
+        sort: publishedAt
+        order: desc
     fields:
       - name: title
-        label: Article title
+        label: Title
         type: string
         required: true
-
+        options:
+          minlength: 5
+          maxlength: 100
       - name: slug
-        label: URL slug (Path for URL)
+        label: URL slug
         type: string
         required: true
-        description: "Lowercase letters, numbers, and hyphens only. Example: understanding-anxiety"
-        pattern: 
+        description: Use lowercase words separated by hyphens. Changing this changes the article URL.
+        pattern:
           regex: "^[a-z0-9]+(?:-[a-z0-9]+)*$"
-          message: "Use lowercase letters, numbers, and hypens only."
-
-      - name: summary
-        label: Short summary
+          message: Use lowercase words separated by hyphens.
+      - name: excerpt
+        label: Excerpt
         type: text
         required: true
-        description: "Shown on the blog page and in search results."
+        description: Plain-language summary used on article cards and in the RSS feed.
         options:
-          minlength: 40
-          maxlength: 300
-
-      - name: status
-        label: Publishing status
+          minlength: 30
+          maxlength: 240
+      - name: published
+        label: Published
+        type: boolean
+        required: true
+        description: Turn this on only when the article is approved and ready to appear publicly.
+      - name: contentType
+        label: Content type
         type: select
         required: true
-        default: draft
         options:
           values:
-            - name: draft
-              label: Draft
-            - name: published
-              label: Published
-
-      - name: published_at
-        label: Publication date
-        type: date
-        default: ""
-        options:
-          format: yyyy-MM-dd
-
+            - name: education
+              label: Patient education
+            - name: practiceUpdate
+              label: Practice update
       - name: category
         label: Category
+        type: reference
+        required: true
+        options:
+          collection: categories
+          value: "{fields.slug}"
+          label: "{fields.title}"
+          search: "title,slug"
+      - name: authorType
+        label: Author type
         type: select
         required: true
         options:
           values:
-            - Anxiety
-            - Depression
-            - ADHD
-            - Sleep
-            - Wellness
-            - Practice updates
-
-      - name: cover_image
+            - name: pa
+              label: Physician Associate
+            - name: guest
+              label: Guest author
+      - name: guestName
+        label: Guest name
+        type: string
+        description: Required when Author type is Guest author.
+      - name: guestCredentials
+        label: Guest credentials
+        type: string
+      - name: guestOrganization
+        label: Guest organization
+        type: string
+      - name: publishedAt
+        label: Publication date
+        type: date
+        required: true
+      - name: updatedAt
+        label: Updated date
+        type: date
+      - name: reviewedAt
+        label: Reviewed date
+        type: date
+      - name: featured
+        label: Featured article
+        type: boolean
+        required: true
+        description: If several articles are featured, the newest one is used.
+      - name: coverImage
         label: Cover image
         type: image
-        required: true
         options:
           media: blog_images
-
-      - name: cover_image_alt
-        label: Cover image description
+          extensions: [jpg, jpeg, png, webp, avif]
+          rename: safe
+      - name: coverImageAlt
+        label: Cover image alternative text
         type: string
-        required: true
-        description: "Describe the image for visitors using screen readers."
-
-      - name: featured
-        label: Feature this article
-        type: boolean
-        default: false
-
-      - name: seo_title
-        label: Search result title
-        type: string
-        description: "Optional. Leave blank to use the article title."
+        description: Required whenever a cover image is selected. Describe the image for people who cannot see it.
         options:
-          maxlength: 70
-
-      - name: seo_description
-        label: Search result description
+          maxlength: 180
+      - name: coverImageCaption
+        label: Cover image caption
+        type: string
+      - name: seoTitle
+        label: SEO title
+        type: string
+        description: Optional. The article title is used when blank.
+        options:
+          maxlength: 60
+      - name: seoDescription
+        label: SEO description
         type: text
-        description: "Optional. Leave blank to use the short summary."
+        description: Optional. The excerpt is used when blank.
         options:
           maxlength: 160
-
+      - name: sample
+        label: Sample article
+        type: boolean
+        required: true
+        description: Turn this off after replacing the starter text with approved content.
       - name: body
-        label: Article content
+        label: Article body
         type: rich-text
         required: true
         options:
           format: markdown
+          switcher: true
           media: blog_images
-          path: public/images/blog
+          extensions: [jpg, jpeg, png, webp, avif]
           rename: safe
-          switcher: false
