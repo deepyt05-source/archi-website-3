@@ -1,0 +1,131 @@
+media: 
+  - name: blog_iamges
+    label: Blog images
+    input: public/images/blog
+    output: /images/blog
+    categories: [image]
+    extensions: [jpg, jpeg, png, webp]
+    rename: safe
+
+settings:
+  content:
+    merge: true
+  commit:
+    identity: user
+    templates:
+      create: "content(blog): create {filename}"
+      update: "content(blog): update {filename}"
+      delete: "content(blog): delete {filename}"
+      rename: "content(blog): rename {oldFilename} to {newFilename}"
+
+content:
+  - name: blog
+    label: Blog posts
+    type: collection
+    path: content/blog
+    format: yaml-frontmatter
+    filename:
+      template: "{fields.slug}.md"
+      field: false
+    view:
+      primary: title
+      sort: published_at
+      order: desc
+    fields:
+      - name: title
+        label: Article title
+        type: string
+        required: true
+
+      - name: slug
+        label: URL slug (Path for URL)
+        type: string
+        required: true
+        description: "Lowercase letters, numbers, and hyphens only. Example: understanding-anxiety"
+        pattern: 
+          regex: "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          message: "Use lowercase letters, numbers, and hypens only."
+
+      - name: summary
+        label: Short summary
+        type: text
+        required: true
+        description: "Shown on the blog page and in search results."
+        options:
+          minlength: 40
+          maxlength: 300
+
+      - name: status
+        label: Publishing status
+        type: select
+        required: true
+        default: draft
+        options:
+          values:
+            - name: draft
+              label: Draft
+            - name: published
+              label: Published
+
+      - name: published_at
+        label: Publication date
+        type: date
+        default: ""
+        options:
+          format: yyyy-MM-dd
+
+      - name: category
+        label: Category
+        type: select
+        required: true
+        options:
+          values:
+            - Anxiety
+            - Depression
+            - ADHD
+            - Sleep
+            - Wellness
+            - Practice updates
+
+      - name: cover_image
+        label: Cover image
+        type: image
+        required: true
+        options:
+          media: blog_images
+
+      - name: cover_image_alt
+        label: Cover image description
+        type: string
+        required: true
+        description: "Describe the image for visitors using screen readers."
+
+      - name: featured
+        label: Feature this article
+        type: boolean
+        default: false
+
+      - name: seo_title
+        label: Search result title
+        type: string
+        description: "Optional. Leave blank to use the article title."
+        options:
+          maxlength: 70
+
+      - name: seo_description
+        label: Search result description
+        type: text
+        description: "Optional. Leave blank to use the short summary."
+        options:
+          maxlength: 160
+
+      - name: body
+        label: Article content
+        type: rich-text
+        required: true
+        options:
+          format: markdown
+          media: blog_images
+          path: public/images/blog
+          rename: safe
+          switcher: false
