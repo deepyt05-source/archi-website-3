@@ -249,6 +249,7 @@ function SectionRule({ left, right }: { left: string; right: string }) {
 }
 
 function MassiveCard({ panel, index }: { panel: (typeof carePanels)[number]; index: number }) {
+  const isTextOnly = index !== 1;
   const moveImage = (event: ReactPointerEvent<HTMLDivElement>) => {
     if (
       event.pointerType === "touch" ||
@@ -269,8 +270,23 @@ function MassiveCard({ panel, index }: { panel: (typeof carePanels)[number]; ind
     event.currentTarget.style.setProperty("--image-rotate", "0deg");
   };
 
+  if (isTextOnly) {
+    return (
+      <article className="massive-card text-only reveal" data-nav-theme="dark">
+        <div className="massive-copy">
+          <span className="eyebrow">{panel.eyebrow}</span>
+          <div className="massive-text-body">
+            <h2>{panel.title}</h2>
+            <p>{panel.body}</p>
+          </div>
+          <CtaLink href="/#treatments">Explore treatments</CtaLink>
+        </div>
+      </article>
+    );
+  }
+
   return (
-    <article className={`massive-card reveal ${index % 2 ? "is-reversed" : ""}`} data-nav-theme="dark">
+    <article className="massive-card reveal is-reversed" data-nav-theme="dark">
       <div className="massive-copy">
         <span className="eyebrow">{panel.eyebrow}</span>
         <h2>{panel.title}</h2>
@@ -317,16 +333,24 @@ function TreatmentIndex() {
   );
 }
 
-function PlaceholderAction({ icon, label, value }: { icon: ReactNode; label: string; value: string }) {
+function LocationRow({ icon, label, children }: { icon: ReactNode; label: string; children: ReactNode }) {
   return (
-    <div className="placeholder-action" aria-label={`${label}: ${value}`}>
+    <div className="location-row">
       <span className="icon-box">{icon}</span>
-      <span>
+      <div className="location-row-content">
         <small>{label}</small>
-        <strong>{value}</strong>
-      </span>
-      <span className="coming-soon">Coming soon</span>
+        {children}
+      </div>
     </div>
+  );
+}
+
+function LocationButton({ href, children }: { href: string; children: ReactNode }) {
+  return (
+    <a className="location-button" href={href} target="_blank" rel="noreferrer">
+      <span>{children}</span>
+      <ArrowUpRight size={14} aria-hidden="true" />
+    </a>
   );
 }
 
@@ -346,11 +370,21 @@ function LocationSection() {
             Clinic information is ready to be connected as soon as the final practice details are available.
           </p>
           <div className="location-actions">
-            <PlaceholderAction icon={<MapPin size={19} />} label={clinic.name} value={clinic.address} />
-            <PlaceholderAction icon={<Compass size={19} />} label="Directions" value={clinic.directions} />
-            <PlaceholderAction icon={<GlobeHemisphereWest size={19} />} label="Website" value={clinic.website} />
-            <PlaceholderAction icon={<Phone size={19} />} label="Phone" value={clinic.phone} />
-            <PlaceholderAction icon={<EnvelopeSimple size={19} />} label="Contact" value={clinic.email} />
+            <LocationRow icon={<MapPin size={19} />} label="Clinic">
+              <strong className="clinic-name">{clinic.name}</strong>
+            </LocationRow>
+            <LocationRow icon={<Compass size={19} />} label="Directions">
+              <div className="location-button-group">
+                <LocationButton href={clinic.appleMaps}>Apple Maps</LocationButton>
+                <LocationButton href={clinic.googleMaps}>Google Maps</LocationButton>
+              </div>
+            </LocationRow>
+            <LocationRow icon={<GlobeHemisphereWest size={19} />} label="Website">
+              <LocationButton href={clinic.website}>Visit clinic website</LocationButton>
+            </LocationRow>
+            <LocationRow icon={<Phone size={19} />} label="Phone">
+              <a className="location-phone" href={`tel:${clinic.phone.replaceAll("-", "")}`}>{clinic.phone}</a>
+            </LocationRow>
           </div>
         </div>
       </div>
@@ -362,7 +396,7 @@ function Footer() {
   return (
     <footer>
       <a className="footer-profile" href="/">
-        <img src="/images/archi-placeholder-portrait.png" alt="Editorial placeholder portrait" />
+        <img src="/images/archi-pic-1.jpg" alt="Editorial placeholder portrait" />
         <span>
           <strong>Archi Patel, PA-C</strong>
           <small>Physician Associate</small>
@@ -504,7 +538,7 @@ function BlogPostPage({ post }: { post: BlogPost }) {
 
         <div className="article-layout">
           <aside className="article-author reveal">
-            <img src="/images/archi-placeholder-portrait.png" alt="Editorial placeholder portrait of Archi Patel" />
+            <img src="/images/archi-pic-1.jpg" alt="Editorial placeholder portrait of Archi Patel" />
             <strong>{authorName}</strong>
             {authorTitle && <span>{authorTitle}</span>}
             {post.reviewedAt && <small>Reviewed {formatBlogDate(post.reviewedAt)}</small>}
@@ -563,7 +597,7 @@ function HomePage() {
             Patient-centered psychiatric care rooted in evidence, empathy, and compassion.
           </p>
           <div className="mini-profile">
-            <img src="/images/archi-placeholder-portrait.png" alt="Editorial placeholder portrait" />
+            <img src="/images/archi-pic-1-thumb.jpg" alt="Archi Patel" width="75" height="75" />
             <span>
               <strong>PA-C</strong>
               <small>Physician Associate</small>
@@ -638,7 +672,7 @@ function AboutPage() {
           <IconLink href="#outside-work" icon={<User size={19} />}>Outside of work</IconLink>
         </aside>
         <div className="about-portrait reveal">
-          <img src="/images/archi-placeholder-portrait.png" alt="Editorial placeholder portrait for Archi Patel" />
+          <img src="/images/archi-pic-1.jpg" alt="Editorial placeholder portrait for Archi Patel" />
           <span>Placeholder portrait · Replace with Archi’s photography</span>
         </div>
       </header>

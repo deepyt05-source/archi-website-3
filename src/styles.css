@@ -222,6 +222,10 @@ p {
   box-shadow: 0 5px 14px rgba(20, 27, 22, 0.16);
 }
 
+.mini-profile img {
+  image-rendering: -webkit-optimize-contrast;
+}
+
 .mini-profile span,
 .footer-profile span {
   display: grid;
@@ -376,6 +380,39 @@ main {
 
 .massive-card.is-reversed .massive-copy {
   order: 2;
+}
+
+.massive-card.text-only {
+  display: block;
+  height: auto;
+  min-height: 390px;
+}
+
+.massive-card.text-only .massive-copy {
+  display: grid;
+  grid-template-columns: minmax(150px, 0.55fr) minmax(420px, 1.75fr) auto;
+  align-items: center;
+  gap: clamp(36px, 5vw, 92px);
+  min-height: 390px;
+}
+
+.massive-card.text-only .massive-text-body {
+  display: grid;
+  grid-template-columns: minmax(300px, 1.25fr) minmax(260px, 0.75fr);
+  align-items: end;
+  gap: clamp(34px, 4vw, 76px);
+}
+
+.massive-card.text-only h2 {
+  margin: 0;
+}
+
+.massive-card.text-only p {
+  margin: 0;
+}
+
+.massive-card.text-only .cta-link {
+  justify-self: end;
 }
 
 .massive-copy {
@@ -708,48 +745,78 @@ main {
   gap: 8px;
 }
 
-.placeholder-action {
+.location-row {
   display: grid;
-  grid-template-columns: 34px minmax(0, 1fr) auto;
+  grid-template-columns: 34px minmax(0, 1fr);
   align-items: center;
   gap: 13px;
-  min-height: 58px;
-  padding: 7px 0;
+  min-height: 66px;
+  padding: 10px 0;
   border-bottom: 1px solid var(--line);
 }
 
-.placeholder-action > span:nth-child(2) {
+.location-row-content {
   display: grid;
-  gap: 3px;
+  gap: 8px;
   min-width: 0;
 }
 
-.placeholder-action small,
-.placeholder-action strong,
-.coming-soon {
+.location-row small,
+.location-row strong,
+.location-button,
+.location-phone {
   font-family: var(--mono);
   font-size: 9px;
   letter-spacing: 0.06em;
 }
 
-.placeholder-action small,
-.coming-soon {
+.location-row small {
   color: var(--muted);
   font-weight: 700;
   text-transform: uppercase;
 }
 
-.placeholder-action strong {
-  overflow: hidden;
-  font-weight: 600;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+.clinic-name {
+  font-size: 11px;
+  font-weight: 850;
+  line-height: 1.4;
+  text-transform: uppercase;
 }
 
-.coming-soon {
-  padding: 6px 8px;
+.location-button-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.location-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  width: fit-content;
+  min-height: 35px;
+  padding: 8px 12px;
   border: 1px solid var(--line);
   border-radius: 999px;
+  background: var(--paper);
+  font-weight: 800;
+  text-transform: uppercase;
+  transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease;
+}
+
+.location-button:hover,
+.location-button:focus-visible {
+  border-color: var(--forest);
+  background: var(--forest);
+  color: var(--paper);
+  outline: none;
+}
+
+.location-phone {
+  width: fit-content;
+  font-size: 11px;
+  font-weight: 700;
 }
 
 footer {
@@ -1591,6 +1658,20 @@ footer > p {
     grid-template-columns: minmax(300px, 0.8fr) minmax(0, 1.2fr);
   }
 
+  .massive-card.text-only .massive-copy {
+    grid-template-columns: 1fr;
+    align-items: start;
+    gap: 28px;
+  }
+
+  .massive-card.text-only .massive-text-body {
+    width: 100%;
+  }
+
+  .massive-card.text-only .cta-link {
+    justify-self: start;
+  }
+
   .treatment-index {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -1824,6 +1905,32 @@ footer > p {
     order: 0;
   }
 
+  .massive-card.text-only {
+    min-height: 0;
+  }
+
+  .massive-card.text-only .massive-copy {
+    display: flex;
+    min-height: 0;
+    padding: 40px 26px 34px;
+  }
+
+  .massive-card.text-only .massive-text-body {
+    display: block;
+  }
+
+  .massive-card.text-only h2 {
+    margin: 62px 0 28px;
+  }
+
+  .massive-card.text-only p {
+    margin-bottom: 34px;
+  }
+
+  .massive-card.text-only .cta-link {
+    justify-self: auto;
+  }
+
   .massive-copy {
     min-height: 420px;
     padding: 36px 26px 30px;
@@ -1912,12 +2019,9 @@ footer > p {
     font-size: 58px;
   }
 
-  .placeholder-action {
-    grid-template-columns: 34px minmax(0, 1fr);
-  }
-
-  .coming-soon {
-    display: none;
+  .location-button-group {
+    align-items: flex-start;
+    flex-direction: column;
   }
 
   footer {

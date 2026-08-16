@@ -1,10 +1,9 @@
 export const clinic = {
-  name: "Clinic name coming soon",
-  address: "Street address, city, state, ZIP",
-  phone: "Phone number coming soon",
-  website: "Clinic website coming soon",
-  directions: "Directions link coming soon",
-  email: "Contact email coming soon",
+  name: "Psychiatric Associates of North Carolina",
+  phone: "919-828-9937",
+  website: "https://psyassoc.com/",
+  appleMaps: "https://maps.apple.com/place?address=4020+Westchase+Blvd%2C+Raleigh%2C+NC++27607%2C+United+States&coordinate=35.802965%2C-78.710095&name=4020+Westchase+Blvd",
+  googleMaps: "https://www.google.com/maps?um=1&ie=UTF-8&fb=1&gl=us&sa=X&geocode=KYPdp4xeX6yJMe4r9ilQsDg1&daddr=4020+Westchase+Blvd+%23370,+Raleigh,+NC+27607",
 };
 
 export const treatments = [
@@ -13,9 +12,7 @@ export const treatments = [
   "ADHD",
   "Anxiety Disorders, Phobias & Panic Attacks",
   "Childhood Behavioral Disorders",
-  "Eating Disorders",
   "Grief",
-  "LGBTQ+ Support",
   "Men’s Mental Health",
   "PTSD & Trauma",
   "Self-Harm & Suicidality",
@@ -23,6 +20,8 @@ export const treatments = [
   "Substance Use Conditions",
   "Women’s Mental Health (Peripartum & Postpartum Conditions)",
   "Stress Management",
+  "Eating Disorders",
+  "LGBTQ+ Support"
 ] as const;
 
 export const carePanels = [
