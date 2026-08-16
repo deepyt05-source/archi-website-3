@@ -238,12 +238,12 @@ function CtaLink({ href, children }: { href: string; children: ReactNode }) {
   );
 }
 
-function SectionRule({ left, right }: { left: string; right: string }) {
+function SectionRule({ left, right }: { left: string; right?: string }) {
   return (
     <div className="section-rule reveal">
       <span>{left}</span>
       <i />
-      <span>{right}</span>
+      {right && <span>{right}</span>}
     </div>
   );
 }
@@ -357,11 +357,10 @@ function LocationButton({ href, children }: { href: string; children: ReactNode 
 function LocationSection() {
   return (
     <section className="location-section" id="location" aria-labelledby="location-heading">
-      <SectionRule left="Visit the clinic" right="Details to be confirmed" />
+      <SectionRule left="Visit the clinic" />
       <div className="location-grid reveal">
         <div className="location-image-wrap">
           <img src="/images/clinic-interior.png" alt="Editorial placeholder for the future clinic location" />
-          <span className="image-note">Placeholder clinic photography</span>
         </div>
         <div className="location-copy" id="contact">
           <span className="eyebrow dark">Location & contact</span>
