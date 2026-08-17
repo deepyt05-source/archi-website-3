@@ -91,23 +91,18 @@
 
   .location-grid,
   .background-section,
-  .principles-grid,
+  .about-overview,
   .outside-card,
   .blog-card.is-featured {
     grid-template-columns: 1fr;
   }
 
-  .location-image-wrap,
-  .background-image img {
+  .location-image-wrap {
     min-height: 580px;
   }
 
-  .principles-grid article {
-    min-height: 320px;
-  }
-
-  .principles-grid h2 {
-    margin-top: 80px;
+  .about-overview {
+    gap: 64px;
   }
 
   .journey-section {
@@ -418,40 +413,51 @@
     padding-top: 0;
   }
 
+  .about-side {
+    width: 100%;
+    justify-self: stretch;
+  }
+
   .about-portrait {
-    grid-column: auto;
-    height: 620px;
-    min-height: 0;
+    aspect-ratio: 4 / 5;
     border-radius: 25px;
   }
 
-  .principles-grid {
-    border-radius: 24px;
-  }
-
-  .principles-grid article {
-    min-height: 330px;
-    padding: 32px 26px;
-  }
-
-  .principles-grid h2 {
-    margin-top: 80px;
-    font-size: 43px;
-  }
-
-  .background-section {
-    margin-top: 96px;
-    border-width: 5px;
+  .about-overview {
+    gap: 52px;
+    padding: 45px 26px;
     border-radius: 27px;
   }
 
-  .background-image img {
-    min-height: 430px;
-    border-radius: 22px;
+  .overview-heading h2 {
+    font-size: 49px;
+  }
+
+  .overview-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .overview-grid article,
+  .overview-grid article:nth-child(n + 3) {
+    min-height: 0;
+    padding: 28px 0 30px;
+    border-top: 1px solid rgba(245, 244, 238, 0.16);
+    border-left: 0;
+  }
+
+  .overview-grid h3 {
+    margin: 44px 0 18px;
+  }
+
+  .background-section {
+    gap: 42px;
+    margin-top: 96px;
+    padding: 45px 26px;
+    border-radius: 27px;
   }
 
   .background-copy {
-    padding: 45px 26px;
+    padding: 0;
   }
 
   .background-copy h2 {

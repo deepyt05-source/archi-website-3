@@ -650,61 +650,57 @@ function AboutPage() {
           <p>
             My name is Archi Patel. I am a board-certified Physician Associate who graduated from Marywood University in Pennsylvania. Since 2020, I have worked in psychiatry, focusing on the treatment of adult patients in an outpatient setting.
           </p>
-          <p>
-            My practice emphasizes a patient-centered approach, combining evidence-based medicine with empathy and compassion to support individuals on their mental health journey.
-          </p>
-          <p>
-            I immigrated to the United States in 2013 along with my family. Fluent in English, Gujarati, and Hindi, I strive to create a welcoming environment for patients from diverse backgrounds.
-          </p>
-          <p>
-            My patients often describe me as sincere, detail-oriented, compassionate, and approachable—qualities that help them feel understood, supported, and empowered in managing their mental health.
-          </p>
-          <p>
-            I am passionate about building trusting relationships, guiding patients through challenges, and helping them achieve stability and well-being.
-          </p>
         </div>
-        <aside className="about-jump reveal">
-          <span className="eyebrow dark">Get to know me</span>
-          <IconLink href="#approach" icon={<Sparkle size={19} />}>My approach</IconLink>
-          <IconLink href="#background" icon={<Translate size={19} />}>Languages & background</IconLink>
-          <IconLink href="#journey" icon={<Stethoscope size={19} />}>Professional journey</IconLink>
-          <IconLink href="#outside-work" icon={<User size={19} />}>Outside of work</IconLink>
-        </aside>
-        <div className="about-portrait reveal">
-          <img src="/images/archi-pic-1.jpg" alt="Editorial placeholder portrait for Archi Patel" />
-          <span>Placeholder portrait · Replace with Archi’s photography</span>
+        <div className="about-side reveal">
+          <div className="about-portrait">
+            <img src="/images/archi-pic-1.jpg" alt="Archi Patel, PA-C" />
+          </div>
+          <aside className="about-jump">
+            <span className="eyebrow dark">Get to know me</span>
+            <IconLink href="#approach" icon={<Sparkle size={19} />}>My approach</IconLink>
+            <IconLink href="#background" icon={<Translate size={19} />}>Languages & background</IconLink>
+            <IconLink href="#journey" icon={<Stethoscope size={19} />}>Professional journey</IconLink>
+            <IconLink href="#outside-work" icon={<User size={19} />}>Outside of work</IconLink>
+          </aside>
         </div>
       </header>
 
       <main className="about-main">
-        <section className="about-principles" id="approach">
-          <SectionRule left="Practice philosophy" right="How care feels" />
-          <div className="principles-grid reveal">
+        <section className="about-overview reveal" id="approach" aria-label="Archi Patel's approach">
+          <div className="overview-heading">
+            <span className="eyebrow">My approach</span>
+            <h2>Care rooted in empathy, perspective, and trust.</h2>
+          </div>
+          <div className="overview-grid">
             <article>
               <span>01</span>
-              <h2>Evidence with empathy</h2>
-              <p>Clinical decisions are grounded in evidence and communicated with clarity, warmth, and respect.</p>
+              <h3>Patient-centered</h3>
+              <p>Evidence-based medicine is paired with empathy and compassion throughout each person’s mental health journey.</p>
             </article>
             <article>
               <span>02</span>
-              <h2>Careful listening</h2>
-              <p>Details matter. A thoughtful understanding of each person guides a more meaningful care plan.</p>
+              <h3>Culturally aware</h3>
+              <p>Personal experience and fluency in English, Gujarati, and Hindi help create a welcoming space for varied backgrounds.</p>
             </article>
             <article>
               <span>03</span>
-              <h2>Trust over time</h2>
-              <p>Strong therapeutic relationships help patients feel supported as they work toward lasting stability.</p>
+              <h3>Sincere support</h3>
+              <p>A detail-oriented, compassionate, and approachable manner helps patients feel understood and empowered.</p>
+            </article>
+            <article>
+              <span>04</span>
+              <h3>Built on trust</h3>
+              <p>Strong relationships guide patients through challenges and toward greater stability and well-being.</p>
             </article>
           </div>
         </section>
 
         <section className="background-section" id="background">
-          <div className="background-image reveal">
-            <img src="/images/care-consultation.png" alt="Editorial placeholder of an attentive consultation" />
-          </div>
           <div className="background-copy reveal">
             <span className="eyebrow dark">Languages & lived experience</span>
             <h2>A practice shaped by perspective.</h2>
+          </div>
+          <div className="background-detail reveal">
             <p>
               Having built a life in the United States after immigrating with her family, Archi brings cultural humility and personal understanding to her work with patients from varied backgrounds.
             </p>
@@ -748,7 +744,7 @@ function AboutPage() {
               Outside of work, I enjoy traveling and exploring new places, spending quality time with friends and family, and discovering different cuisines. I also love decorating and making spaces feel welcoming. In my free time, I especially enjoy being around dogs, whose companionship brings me great joy.
             </p>
           </div>
-          <img src="/images/wellness-walk.png" alt="Editorial placeholder of a peaceful walk with a dog" />
+          <img src="/images/nature-path.png" alt="A quiet path winding through a sunlit meadow beside the water" />
         </section>
       </main>
       <Footer />
