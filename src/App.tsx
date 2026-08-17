@@ -645,11 +645,16 @@ function AboutPage() {
       <Nav />
       <header className="about-hero">
         <div className="about-copy reveal">
-          <span className="eyebrow dark">About</span>
+          <span className="eyebrow dark about-label">About</span>
           <h1>Care with a sincere, human center.</h1>
           <p>
-            My name is Archi Patel. I am a board-certified Physician Associate who graduated from Marywood University in Pennsylvania. Since 2020, I have worked in psychiatry, focusing on the treatment of adult patients in an outpatient setting.
+            My name is Archi Patel, and I am a board-certified Physician Assistant with a Certificate of Added Qualifications (CAQ) in Psychiatry. I earned my Master of Science in Physician Assistant Studies from Marywood University and have practiced outpatient psychiatry since 2020, caring for adolescents, adults, and geriatric patients.
           </p>
+          <div className="about-credentials" aria-label="Professional credentials">
+            <span>PA-C</span>
+            <span>Psychiatry CAQ</span>
+            <span>Practicing since 2020</span>
+          </div>
         </div>
         <div className="about-side reveal">
           <div className="about-portrait">
@@ -666,43 +671,46 @@ function AboutPage() {
       </header>
 
       <main className="about-main">
-        <section className="about-overview reveal" id="approach" aria-label="Archi Patel's approach">
-          <div className="overview-heading">
-            <span className="eyebrow">My approach</span>
-            <h2>Care rooted in empathy, perspective, and trust.</h2>
+        <section className="approach-editorial reveal" id="approach" aria-label="Archi Patel's approach" data-nav-theme="dark">
+          <SectionRule left="My approach" right="Patient-centered psychiatry" />
+          <div className="approach-lead">
+            <h2>Care begins with being heard.</h2>
+            <div className="approach-intro">
+              <p>
+                My approach to mental health care is patient-centered, collaborative, and grounded in evidence-based medicine.
+              </p>
+              <p>
+                I believe effective psychiatric care begins with listening and understanding each individual’s unique experiences, concerns, and goals.
+              </p>
+            </div>
           </div>
-          <div className="overview-grid">
+          <div className="approach-chapters">
             <article>
               <span>01</span>
-              <h3>Patient-centered</h3>
-              <p>Evidence-based medicine is paired with empathy and compassion throughout each person’s mental health journey.</p>
+              <h3>A collaborative space</h3>
+              <p>I strive to create a supportive, nonjudgmental environment where patients feel comfortable being open about their mental health and actively involved in treatment.</p>
             </article>
             <article>
               <span>02</span>
-              <h3>Culturally aware</h3>
-              <p>Personal experience and fluency in English, Gujarati, and Hindi help create a welcoming space for varied backgrounds.</p>
+              <h3>Specialized commitment</h3>
+              <p>My Psychiatry CAQ, earned in 2023, reflects an ongoing commitment to specialized education. I bring that depth to patients across life stages and a wide range of mental health concerns.</p>
             </article>
             <article>
               <span>03</span>
-              <h3>Sincere support</h3>
-              <p>A detail-oriented, compassionate, and approachable manner helps patients feel understood and empowered.</p>
-            </article>
-            <article>
-              <span>04</span>
-              <h3>Built on trust</h3>
-              <p>Strong relationships guide patients through challenges and toward greater stability and well-being.</p>
+              <h3>Partnership over time</h3>
+              <p>Patients often describe me as sincere, compassionate, detail-oriented, and approachable. My goal is to provide individualized care that builds trust, supports greater stability, and empowers patients to understand and manage their mental health.</p>
             </article>
           </div>
         </section>
 
-        <section className="background-section" id="background">
+        <section className="background-section" id="background" data-nav-theme="dark">
           <div className="background-copy reveal">
             <span className="eyebrow dark">Languages & lived experience</span>
             <h2>A practice shaped by perspective.</h2>
           </div>
           <div className="background-detail reveal">
             <p>
-              Having built a life in the United States after immigrating with her family, Archi brings cultural humility and personal understanding to her work with patients from varied backgrounds.
+              Having immigrated to the United States with her family in 2013, Archi understands the importance of feeling welcomed, heard, and respected in a new environment. She values the opportunity to provide culturally sensitive care to people from diverse backgrounds.
             </p>
             <div className="language-list">
               <span>English</span>
@@ -720,28 +728,33 @@ function AboutPage() {
           <div className="timeline reveal">
             <article>
               <span>Education</span>
-              <h3>Marywood University</h3>
-              <p>Pennsylvania · Physician Associate education</p>
+              <h3>Master of Science</h3>
+              <p>Physician Assistant Studies · Marywood University, Pennsylvania</p>
             </article>
             <article>
               <span>Since 2020</span>
               <h3>Outpatient psychiatry</h3>
-              <p>Board-certified care focused on adult patients</p>
+              <p>Care for adolescents, adults, and geriatric patients</p>
             </article>
             <article>
-              <span>Today</span>
-              <h3>Patient-centered practice</h3>
-              <p>Evidence-based medicine delivered with empathy and compassion</p>
+              <span>2023</span>
+              <h3>Psychiatry CAQ</h3>
+              <p>Advanced qualification reflecting continued specialized education</p>
+            </article>
+            <article>
+              <span>Every visit</span>
+              <h3>Individualized partnership</h3>
+              <p>Collaborative, evidence-based care shaped around each patient’s needs and goals</p>
             </article>
           </div>
         </section>
 
-        <section className="outside-card reveal" id="outside-work">
+        <section className="outside-card reveal" id="outside-work" data-nav-theme="dark">
           <div className="outside-copy">
             <span className="eyebrow">Outside of work</span>
-            <h2>Curious, creative, and always happy around dogs.</h2>
+            <h2>Curious, creative, and happiest around dogs.</h2>
             <p>
-              Outside of work, I enjoy traveling and exploring new places, spending quality time with friends and family, and discovering different cuisines. I also love decorating and making spaces feel welcoming. In my free time, I especially enjoy being around dogs, whose companionship brings me great joy.
+              Outside of clinical work, I enjoy traveling, exploring new places, spending time with friends and family, and discovering different cuisines. I also love decorating and creating warm, inviting spaces—and whenever I have the opportunity, spending time with dogs brings me a great deal of joy.
             </p>
           </div>
           <img src="/images/nature-path.png" alt="A quiet path winding through a sunlit meadow beside the water" />

@@ -36,7 +36,7 @@ export const carePanels = [
     eyebrow: "A welcoming practice",
     title: "Care that makes room for the whole person.",
     body: "Fluent in English, Gujarati, and Hindi, Archi strives to create a sincere, approachable environment for patients from many backgrounds.",
-    image: "/images/clinic-interior.png",
+    image: "/images/welcoming-office.png",
     alt: "Editorial placeholder of a warm outpatient clinic interior",
   },
   {

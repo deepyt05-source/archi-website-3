@@ -91,7 +91,6 @@
 
   .location-grid,
   .background-section,
-  .about-overview,
   .outside-card,
   .blog-card.is-featured {
     grid-template-columns: 1fr;
@@ -101,8 +100,15 @@
     min-height: 580px;
   }
 
-  .about-overview {
-    gap: 64px;
+  .approach-lead {
+    grid-template-columns: 1fr;
+    align-items: start;
+    gap: 30px;
+  }
+
+  .approach-chapters {
+    grid-template-columns: 1fr;
+    gap: 0;
   }
 
   .journey-section {
@@ -409,8 +415,13 @@
     font-size: 21px;
   }
 
+  .about-credentials span {
+    padding: 9px 13px;
+    font-size: 10px;
+  }
+
   .about-jump {
-    padding-top: 0;
+    padding-top: 40px;
   }
 
   .about-side {
@@ -423,30 +434,57 @@
     border-radius: 25px;
   }
 
-  .about-overview {
-    gap: 52px;
-    padding: 45px 26px;
+  .approach-editorial {
+    margin-bottom: 96px;
+    padding: 34px 24px;
     border-radius: 27px;
   }
 
-  .overview-heading h2 {
-    font-size: 49px;
+  .approach-editorial .section-rule {
+    margin-bottom: 24px;
   }
 
-  .overview-grid {
+  .approach-lead {
+    display: block;
+    padding: 10px 0 34px;
+  }
+
+  .approach-lead h2 {
+    font-size: 48px;
+  }
+
+  .approach-intro {
+    margin-top: 28px;
+    gap: 14px;
+  }
+
+  .approach-intro p {
+    font-size: 18px;
+  }
+
+  .approach-chapters {
     grid-template-columns: 1fr;
+    gap: 0;
   }
 
-  .overview-grid article,
-  .overview-grid article:nth-child(n + 3) {
-    min-height: 0;
-    padding: 28px 0 30px;
-    border-top: 1px solid rgba(245, 244, 238, 0.16);
-    border-left: 0;
+  .approach-chapters article,
+  .approach-chapters article:last-child {
+    grid-column: auto;
+    padding: 18px 0 26px;
   }
 
-  .overview-grid h3 {
-    margin: 44px 0 18px;
+  .approach-chapters h3 {
+    margin: 24px 0 14px;
+    font-size: 34px;
+  }
+
+  .approach-chapters article > span,
+  .timeline article > span {
+    font-size: 11px;
+  }
+
+  .approach-chapters p {
+    font-size: 16px;
   }
 
   .background-section {
