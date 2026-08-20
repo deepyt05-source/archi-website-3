@@ -710,7 +710,7 @@ function AboutPage() {
           </div>
           <div className="background-detail reveal">
             <p>
-              Having immigrated to the United States with her family in 2013, I understand
+              Having immigrated to the United States with my family in 2013, I understand
               the importance of feeling welcomed, heard, and respected in a new environment. 
               I value the opportunity to provide culturally sensitive care to people from diverse backgrounds.
             </p>
