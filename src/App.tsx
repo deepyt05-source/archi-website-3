@@ -379,7 +379,7 @@ function LocationSection() {
               </div>
             </LocationRow>
             <LocationRow icon={<GlobeHemisphereWest size={19} />} label="Website">
-              <LocationButton href={clinic.website}>Visit clinic website</LocationButton>
+              <LocationButton href={clinic.website}>Schedule Appointment</LocationButton>
             </LocationRow>
             <LocationRow icon={<Phone size={19} />} label="Phone">
               <a className="location-phone" href={`tel:${clinic.phone.replaceAll("-", "")}`}>{clinic.phone}</a>
@@ -710,7 +710,9 @@ function AboutPage() {
           </div>
           <div className="background-detail reveal">
             <p>
-              Having immigrated to the United States with her family in 2013, Archi understands the importance of feeling welcomed, heard, and respected in a new environment. She values the opportunity to provide culturally sensitive care to people from diverse backgrounds.
+              Having immigrated to the United States with her family in 2013, I understand
+              the importance of feeling welcomed, heard, and respected in a new environment. 
+              I value the opportunity to provide culturally sensitive care to people from diverse backgrounds.
             </p>
             <div className="language-list">
               <span>English</span>

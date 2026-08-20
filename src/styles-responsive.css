@@ -435,7 +435,7 @@
   }
 
   .approach-editorial {
-    margin-bottom: 96px;
+    margin-bottom: 0;
     padding: 34px 24px;
     border-radius: 27px;
   }
@@ -489,7 +489,7 @@
 
   .background-section {
     gap: 42px;
-    margin-top: 96px;
+    margin-top: 20px;
     padding: 45px 26px;
     border-radius: 27px;
   }
